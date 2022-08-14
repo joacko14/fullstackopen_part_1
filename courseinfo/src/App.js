@@ -4,15 +4,15 @@ const Content = ({ parts }) => {
   return (
     <>
       {parts.map((part) => (
-        <Part title={part.title} exercises={part.exercises} />
+        <Part name={part.name} exercises={part.exercises} />
       ))}
     </>
   );
 };
 
-const Part = ({ title, exercises }) => (
+const Part = ({ name, exercises }) => (
   <p>
-    {title} {exercises}
+    {name} {exercises}
   </p>
 );
 
@@ -20,11 +20,22 @@ const Total = ({ total }) => <h3>Number of exercises {total}</h3>;
 
 const App = () => {
   const course = "Half Stack application development";
-  const parts = [
-    { title: "Fundamentals of React", exercises: 10 },
-    { title: "Using props to pass data", exercises: 7 },
-    { title: "State of a component", exercises: 14 },
-  ];
+
+  // using objects in our application...
+  const part1 = {
+    name: "Fundamentals of React",
+    exercises: 10,
+  };
+  const part2 = {
+    name: "Using props to pass data",
+    exercises: 7,
+  };
+  const part3 = {
+    name: "State of a component",
+    exercises: 14,
+  };
+
+  const parts = [part1, part2, part3];
 
   return (
     <div>
