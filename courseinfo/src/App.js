@@ -4,13 +4,17 @@ const Content = ({ parts }) => {
   return (
     <>
       {parts.map((part) => (
-        <p>
-          {part.title} {part.exercises}
-        </p>
+        <Part title={part.title} exercises={part.exercises} />
       ))}
     </>
   );
 };
+
+const Part = ({ title, exercises }) => (
+  <p>
+    {title} {exercises}
+  </p>
+);
 
 const Total = ({ total }) => <h3>Number of exercises {total}</h3>;
 
