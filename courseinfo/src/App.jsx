@@ -8,15 +8,9 @@ const Header = ({ courseName }) => {
 const Content = ({ data }) => {
   return (
     <>
-      <p>
-        {data[0].name} {data[0].exercises}
-      </p>
-      <p>
-        {data[1].name} {data[1].exercises}
-      </p>
-      <p>
-        {data[2].name} {data[2].exercises}
-      </p>
+      <Part name={data[0].name} exercises={data[0].exercises} />
+      <Part name={data[1].name} exercises={data[1].exercises} />
+      <Part name={data[2].name} exercises={data[2].exercises} />
     </>
   );
 };
@@ -25,6 +19,14 @@ const Total = ({ count }) => {
     <>
       <h5>El total de ejercicios para el curso es: {count}</h5>
     </>
+  );
+};
+
+const Part = ({ name, exercises }) => {
+  return (
+    <p>
+      {name} {exercises}
+    </p>
   );
 };
 
