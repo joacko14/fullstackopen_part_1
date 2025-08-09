@@ -1,22 +1,52 @@
-const Hello = (props) => {
-  console.log(props);
+const Header = ({ courseName }) => {
+  return (
+    <>
+      <h1>{courseName}</h1>
+    </>
+  );
+};
+const Content = ({ data }) => {
   return (
     <>
       <p>
-        Hello {props.name}, you are {props.age} years old
+        {data[0].name} {data[0].exercises}
       </p>
+      <p>
+        {data[1].name} {data[1].exercises}
+      </p>
+      <p>
+        {data[2].name} {data[2].exercises}
+      </p>
+    </>
+  );
+};
+const Total = ({ count }) => {
+  return (
+    <>
+      <h5>El total de ejercicios para el curso es: {count}</h5>
     </>
   );
 };
 
 const App = () => {
-  const name = "Armando";
-  const age = 33;
+  const course = "Half stack application development";
+  const part1 = "Fundamentals of react";
+  const exercises1 = 10;
+  const part2 = "Using props to pass data";
+  const exercises2 = 7;
+  const part3 = "State of a component";
+  const exercises3 = 14;
+  const data = [
+    { name: part1, exercises: exercises1 },
+    { name: part2, exercises: exercises2 },
+    { name: part3, exercises: exercises3 },
+  ];
+
   return (
     <>
-      <h1>Greetings</h1>
-      <Hello name="Joaquín" age={31 + 2} />
-      <Hello name={name} age={age} />
+      <Header courseName={course} />
+      <Content data={data} />
+      <Total count={exercises1 + exercises2 + exercises3} />
     </>
   );
 };
