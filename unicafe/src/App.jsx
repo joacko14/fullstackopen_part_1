@@ -6,9 +6,12 @@ const Button = ({ onClick, text }) => {
 
 const StatisticLine = ({ text, value }) => {
   return (
-    <p>
-      {text} <b>{isNaN(value) ? "-" : value}</b>
-    </p>
+    <tr>
+      <td>{text}</td>
+      <td>
+        <b>{isNaN(value) ? "-" : value}</b>
+      </td>
+    </tr>
   );
 };
 
@@ -16,13 +19,19 @@ const Statistics = ({ statistics }) => {
   return (
     <>
       <h3>Statistics</h3>
-      {statistics.all > 0 ? (
-        Object.entries(statistics).map(([statName, statValue]) => (
-          <StatisticLine text={statName} value={statValue} />
-        ))
-      ) : (
-        <p>No feedback given</p>
-      )}
+      <table>
+        <tbody>
+          {statistics.all > 0 ? (
+            Object.entries(statistics).map(([statName, statValue]) => (
+              <StatisticLine key={statName} text={statName} value={statValue} />
+            ))
+          ) : (
+            <tr>
+              <td colSpan={2}>No feedback given</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </>
   );
 };
