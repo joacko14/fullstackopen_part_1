@@ -4,11 +4,15 @@ const Statistics = ({ statistics }) => {
   return (
     <>
       <h3>Statistics</h3>
-      {Object.entries(statistics).map(([statName, statValue]) => (
-        <p key={statName}>
-          {statName} <b>{isNaN(statValue) ? "-" : statValue}</b>
-        </p>
-      ))}
+      {statistics.all > 0 ? (
+        Object.entries(statistics).map(([statName, statValue]) => (
+          <p key={statName}>
+            {statName} <b>{isNaN(statValue) ? "-" : statValue}</b>
+          </p>
+        ))
+      ) : (
+        <p>No feedback given</p>
+      )}
     </>
   );
 };
