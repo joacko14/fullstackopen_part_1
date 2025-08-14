@@ -23,29 +23,12 @@ function App() {
     positive: 0,
   });
 
-  const handleGood = (event) => {
-    event.preventDefault();
+  const handleClick = (stat) => {
+    console.log;
     setStatistics((prev) => ({
       ...prev,
-      good: prev.good++,
+      [stat]: prev[stat]++,
     }));
-    console.log("good button clicked");
-  };
-  const handleNeutral = (event) => {
-    event.preventDefault();
-    setStatistics((prev) => ({
-      ...prev,
-      neutral: prev.neutral++,
-    }));
-    console.log("Neutral button clicked");
-  };
-  const handleBad = (event) => {
-    event.preventDefault();
-    setStatistics((prev) => ({
-      ...prev,
-      bad: prev.bad++,
-    }));
-    console.log("Bad button clicked");
   };
 
   useEffect(() => {
@@ -64,9 +47,9 @@ function App() {
   return (
     <>
       <h3>Give feedback </h3>
-      <button onClick={handleGood}>good</button>
-      <button onClick={handleNeutral}>neutral</button>
-      <button onClick={handleBad}>bad</button>
+      <button onClick={() => handleClick("good")}>Good</button>
+      <button onClick={() => handleClick("neutral")}>Neutral</button>
+      <button onClick={() => handleClick("bad")}>Bad</button>
       <Statistics statistics={statistics} />
     </>
   );
