@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react";
 
+const Statistics = ({ statistics }) => {
+  return (
+    <>
+      <h3>Statistics</h3>
+      {Object.entries(statistics).map(([statName, statValue]) => (
+        <p key={statName}>
+          {statName} <b>{isNaN(statValue) ? "-" : statValue}</b>
+        </p>
+      ))}
+    </>
+  );
+};
+
 function App() {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
   const [statistics, setStatistics] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0,
     all: 0,
     average: 0,
     positive: 0,
@@ -12,28 +25,41 @@ function App() {
 
   const handleGood = (event) => {
     event.preventDefault();
-    setGood((prev) => prev + 1);
+    setStatistics((prev) => ({
+      ...prev,
+      good: prev.good++,
+    }));
     console.log("good button clicked");
   };
   const handleNeutral = (event) => {
     event.preventDefault();
-    setNeutral((prev) => prev + 1);
+    setStatistics((prev) => ({
+      ...prev,
+      neutral: prev.neutral++,
+    }));
     console.log("Neutral button clicked");
   };
   const handleBad = (event) => {
     event.preventDefault();
-    setBad((prev) => prev + 1);
+    setStatistics((prev) => ({
+      ...prev,
+      bad: prev.bad++,
+    }));
     console.log("Bad button clicked");
   };
 
   useEffect(() => {
     setStatistics((prev) => ({
       ...prev,
-      all: good + neutral + bad,
-      average: (good - bad) / (good + neutral + bad),
-      positive: good / (good + neutral + bad),
+      all: statistics.good + statistics.neutral + statistics.bad,
+      average:
+        (statistics.good - statistics.bad) /
+        (statistics.good + statistics.neutral + statistics.bad),
+      positive:
+        statistics.good /
+        (statistics.good + statistics.neutral + statistics.bad),
     }));
-  }, [good, neutral, bad]);
+  }, [statistics.good, statistics.neutral, statistics.bad]);
 
   return (
     <>
@@ -41,25 +67,7 @@ function App() {
       <button onClick={handleGood}>good</button>
       <button onClick={handleNeutral}>neutral</button>
       <button onClick={handleBad}>bad</button>
-      <h3>Statistics</h3>
-      <p>
-        good <b>{good}</b>
-      </p>
-      <p>
-        neutral <b>{neutral}</b>
-      </p>
-      <p>
-        bad <b>{bad}</b>
-      </p>
-      <p>
-        all <b>{statistics.all}</b>
-      </p>
-      <p>
-        average <b>{isNaN(statistics.average) ? "-" : statistics.average}</b>
-      </p>
-      <p>
-        positive <b>{isNaN(statistics.positive) ? "-" : statistics.positive}</b>
-      </p>
+      <Statistics statistics={statistics} />
     </>
   );
 }
