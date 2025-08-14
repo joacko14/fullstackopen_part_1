@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
 
+const Button = ({ onClick, text }) => {
+  return <button onClick={onClick}>{text}</button>;
+};
+
+const StatisticLine = ({ text, value }) => {
+  return (
+    <p>
+      {text} <b>{isNaN(value) ? "-" : value}</b>
+    </p>
+  );
+};
+
 const Statistics = ({ statistics }) => {
   return (
     <>
       <h3>Statistics</h3>
       {statistics.all > 0 ? (
         Object.entries(statistics).map(([statName, statValue]) => (
-          <p key={statName}>
-            {statName} <b>{isNaN(statValue) ? "-" : statValue}</b>
-          </p>
+          <StatisticLine text={statName} value={statValue} />
         ))
       ) : (
         <p>No feedback given</p>
@@ -51,9 +61,9 @@ function App() {
   return (
     <>
       <h3>Give feedback </h3>
-      <button onClick={() => handleClick("good")}>Good</button>
-      <button onClick={() => handleClick("neutral")}>Neutral</button>
-      <button onClick={() => handleClick("bad")}>Bad</button>
+      <Button text="Good" onClick={() => handleClick("good")} />
+      <Button text="Neutral" onClick={() => handleClick("neutral")} />
+      <Button text="Bad" onClick={() => handleClick("bad")} />
       <Statistics statistics={statistics} />
     </>
   );
