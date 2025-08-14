@@ -8,7 +8,6 @@ const RandomButton = ({ currentNumber, setRandomNumber, maxNumber, text }) => {
         do {
           newNumber = Math.floor(Math.random() * maxNumber);
         } while (newNumber === currentNumber);
-        console.log(newNumber);
         setRandomNumber(newNumber);
       }}
     >
@@ -17,7 +16,18 @@ const RandomButton = ({ currentNumber, setRandomNumber, maxNumber, text }) => {
   );
 };
 
+const VoteButton = ({ text, onClick }) => {
+  return <button onClick={onClick}>{text}</button>;
+};
+
 const App = () => {
+  const handleVote = (votedAnecdote) => {
+    setVotes((prev) => ({
+      ...prev,
+      [votedAnecdote]: (prev[votedAnecdote] || 0) + 1,
+    }));
+  };
+
   const anecdotes = [
     "If it hurts, do it more often.",
     "Adding manpower to a late software project makes it later!",
@@ -29,17 +39,21 @@ const App = () => {
     "The only way to go fast, is to go well.",
   ];
 
+  const [votes, setVotes] = useState({});
+
   const [selected, setSelected] = useState(0);
 
   return (
     <>
+      <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected] ?? "no"} votes</p>
+      <VoteButton text="Vote" onClick={() => handleVote(selected)} />
       <RandomButton
         setRandomNumber={setSelected}
         currentNumber={selected}
         maxNumber={anecdotes.length}
-        text="Get idea"
+        text="Next anecdote"
       />
-      <div>{anecdotes[selected]}</div>
     </>
   );
 };
